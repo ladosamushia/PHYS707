@@ -12,15 +12,17 @@ xtotal = np.array([])
 ytotal = np.array([])
 ztotal = np.array([])
 i=0
+#define a pointing vector to get angles out of
 def vector():
-    vect = np.array([rd.uniform(-1,1),rd.uniform(-1,1),rd.uniform(-1,1)])
-    phi = np.arctan(vect[0]/vect[1])
+    vect = np.array([rd.uniform(-2,2),rd.uniform(-2,2),rd.uniform(-2,2)])
+    phi = np.arctan2(vect[0],vect[1])
     theta = np.arccos(vect[2]/np.linalg.norm(vect))
     point = np.array([phi,theta])
     return(point)
-while i < 1000:
+#generate points
+while i < 10000:
     i=i+1
-    r = np.cbrt(rd.uniform(0,1))
+    r = np.cbrt(rd.uniform(0,1))#by def for even dist.
     a = vector()
     sint =np.sin(a[1])
     cost=np.cos(a[1])
@@ -45,4 +47,3 @@ ax.set_ylabel('Y Label')
 ax.set_zlabel('Z Label')
 
 plt.show()
-#print(ztotal)
