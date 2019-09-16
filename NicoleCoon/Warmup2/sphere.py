@@ -14,13 +14,13 @@ ztotal = np.array([])
 i=0
 #define a pointing vector to get angles out of
 def vector():
-    vect = np.array([rd.uniform(-2,2),rd.uniform(-2,2),rd.uniform(-2,2)])
+    vect = np.array([rd.uniform(-1,1),rd.uniform(-1,1),rd.uniform(-1,1)])
     phi = np.arctan2(vect[0],vect[1])
     theta = np.arccos(vect[2]/np.linalg.norm(vect))
     point = np.array([phi,theta])
     return(point)
 #generate points
-while i < 10000:
+while i < 300:
     i=i+1
     r = np.cbrt(rd.uniform(0,1))#by def for even dist.
     a = vector()
@@ -42,8 +42,8 @@ ax = fig.add_subplot(111, projection='3d')
 
 ax.scatter(xtotal, ytotal, ztotal, c='r', marker='o')
 
-ax.set_xlabel('X Label')
-ax.set_ylabel('Y Label')
-ax.set_zlabel('Z Label')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
 
 plt.show()
