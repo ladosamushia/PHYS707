@@ -3,8 +3,7 @@
 @author: Philip Lucas
 Warmup Homework 2 
 Spherical distribution of data
-*note* I still need to set up a way to sample it to show its uniform
-I referenced this 
+I referenced Marsaglia technique from the following URL
 http://mathworld.wolfram.com/SpherePointPicking.html
 """
 import numpy as np
@@ -13,15 +12,15 @@ from mpl_toolkits.mplot3d import Axes3D
 X = [] # x points for plotting 
 Y = [] # y points for plotting 
 Z = [] # z points for plotting 
-N = 100
+N = 1000
 n =  0.0
 while n <= N:
     #r = 1
+    #r = (np.random.uniform(0,1))
     r = (np.random.uniform(0,1))**(1.0/3.0) #radius of point
-    #using Marsaglia method to creat points on a unit spheres surface
     x1 = np.random.uniform(-1,1) 
     x2 = np.random.uniform(-1,1)
-    if x1**2 + x2**2 >= 1: 
+    if x1**2 + x2**2 >= 1: #using Marsaglia method to create points on a unit spheres surface
         x1 = np.random.uniform(-1,1)
         x2 = np.random.uniform(-1,1) 
     a = (2*x1*np.sqrt(1-x1**2 -x2**2)) #xpoint on surface
@@ -45,40 +44,4 @@ ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
 ax.view_init(azim=0, elev=90)
-ax.set_title('Top Down View')
-fig = plt.figure(2)
-ax = fig.add_subplot(111, projection='3d')
-ax.scatter(X, Y, Z, c='g', marker='.')
-ax.set_xlim([-1,1])
-ax.set_ylim([-1,1])
-ax.set_zlim([-1,1])
-ax.set_aspect("equal")
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-ax.view_init(azim=90, elev=0)
-fig = plt.figure(3)
-ax = fig.add_subplot(111, projection='3d')
-ax.scatter(X, Y, Z, c='r', marker='.')
-ax.set_xlim([-1,1])
-ax.set_ylim([-1,1])
-ax.set_zlim([-1,1])
-ax.set_aspect("equal")
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-ax.view_init(azim=180, elev=0)
-ax.set_title('X-Z Side View')
-fig = plt.figure(4)
-ax = fig.add_subplot(111, projection='3d')
-ax.scatter(X, Y, Z, c='black', marker='.')
-ax.set_xlim([-1,1])
-ax.set_ylim([-1,1])
-ax.set_zlim([-1,1])
-ax.set_aspect("equal")
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
-ax.set_title('Isometric View')
-
-
+ax.set_title('Distribution in a sphere')
