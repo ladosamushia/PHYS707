@@ -1,0 +1,17 @@
+n = 6;
+r = (RandomReal[{0, 1}, {10^n, 1}])^(1/3);
+ct = RandomReal[{-1, 1}, {10^n, 1}];
+p = (-1)^(RandomInteger[1, 10^n]);
+st = p*Sin[ArcCos[ct]];
+\[Phi] = (Pi/180)*RandomReal[{0, 360}, {10^n, 1}];
+cp = Cos[\[Phi]];
+sp = Sin[\[Phi]];
+x = Flatten[r*st*cp];
+y = Flatten[r*st*sp];
+z = Flatten[r*ct];
+A = Transpose[{x, y, z}];
+ListPointPlot3D[A, BoxRatios -> {1, 1, 1}, 
+ AxesLabel -> {"x", "y", "z"}]
+ListPlot[Transpose[{x, y}], AspectRatio -> 1, AxesLabel -> {"x", "y"}]
+ListPlot[Transpose[{z, y}], AspectRatio -> 1, AxesLabel -> {"z", "y"}]
+ListPlot[Transpose[{z, x}], AspectRatio -> 1, AxesLabel -> {"z", "x"}]
