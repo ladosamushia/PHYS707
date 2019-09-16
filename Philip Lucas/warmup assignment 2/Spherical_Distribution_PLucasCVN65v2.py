@@ -34,7 +34,6 @@ while n <= N:
     Y.append(y)
     Z.append(z)
     n+=1
-print np.sum(X)
 fig = plt.figure(1)
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(X, Y, Z, c='b', marker='.')
