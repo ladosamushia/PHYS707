@@ -6,45 +6,44 @@ Created on Fri Sep 13 19:37:50 2019
 """
 
 from numpy.random import normal
-from numpy import mean
+from numpy import mean, savetxt
 import matplotlib.pyplot as plt
+import sys
+
+n = sys.argv[1]
+syscount = 0
 
 Px = []
 Py = []
-Na = []
 Nb = []
 
-Nl = 10**4
-nl = 10**2
+Nl = 10**4 #Number of samples in Gaussian distribution.
+nl = 10**5 #Number of times the mean is sampled from the distribution.
 for N in range(1, Nl+1, 1):
-    Na.append(N)
+    syscount += 1
     px = 0
     py = 0
-    print(N)
+    if str(syscount) == n:
+        break
     
-    for n in range(0, nl, 1):
-        x = normal(1, 1, N)
-        y = normal(1.1, 1, N)
-        
-        if mean(x) > mean(y):
-            px += 1
-        if mean(x) <= mean(y):
-            py += 1    
-    if (px/nl) < 0.01:
-        Nb.append(N)
+for n in range(0, nl, 1):
+    x = normal(1, 1, N) #Gaussian distribution with mean = 1, stdev = 1, N samples.
+    y = normal(1.1, 1, N) #Gaussian distribution with mean = 1.1, stdev = 1, N samples.
     
-    Px.append(px/nl)
-    Py.append(py/nl)
-       
-plt.plot(Na, Px, label='$P(\mu_x > \mu_y)$')
-plt.plot(Na, Py, label='$P(\mu_y > \mu_x)$')
-plt.plot([0, 1000], [1, 1])
-plt.plot([0, 1000], [0, 0])
-plt.legend(loc='lower right', bbox_to_anchor=(0.95, 0.35), prop={'size':12}) # << mcase 3
-plt.show()
-        
-print(min(Nb))
-
+    if mean(x) > mean(y):
+        px += 1/nl #Probability that sample mean of x is greater than sample mean of y.
+    if mean(x) <= mean(y):
+        py += 1/nl    
+if px < 0.01:
+    Nb.append(N) #Records all N for which P(<x> < <y>) < 0.01.
+    savetxt('temp_Nb_' + str(syscount) + '.dat', Nb)
+    
+Px.append(px)
+Py.append(py)
+    
+savetxt('temp_Px_' + str(syscount) + '.dat', Px)
+savetxt('temp_Py_' + str(syscount) + '.dat', Py)
+savetxt('temp_Nb_' + str(syscount) + '.dat', Nb)
 
     
     
