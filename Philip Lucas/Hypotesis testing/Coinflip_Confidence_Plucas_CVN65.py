@@ -116,10 +116,10 @@ plt.ylabel(r'$\mu$')
 plt.xlabel('Number of Flips')
 plt.grid()
 for i in range(1,1+len(results)):
-    plt.plot(i,results[i-1],'b.',alpha=0.5)
+    plt.plot(i,results[i-1],'b.',alpha=0.5, markersize=0.9)
     plt.plot(i, 1/i**2)
-plt.plot(t+1,  1.5/np.sqrt(t) + pfair, 'purple')
-plt.plot(t+1, -1.5/np.sqrt(t) + pfair, 'purple')
+#plt.plot(t+1,  1.5/np.sqrt(t) + pfair, 'purple')
+#plt.plot(t+1, -1.5/np.sqrt(t) + pfair, 'purple')
 plt.fill_between(t+1, 1.5/np.sqrt(t) +0.5, -1.5/np.sqrt(t) +0.5 ,color = 'purple', alpha=0.25)
 plt.plot(np.linspace(1,Ntrials+1,num=Ntrials),np.ones(Ntrials)*0.5,'purple')
 plt.plot([N], [test], marker='o', markersize=3, color="red")
@@ -131,6 +131,37 @@ if test + q  >=1:
 if test + r  <=0:
     r = 0
 plt.errorbar([N], [test], yerr=[[q], [r]],color="black",fmt='.')
-plt.plot(t+1,  1.5/np.sqrt(t) + p, 'blue')
-plt.plot(t+1, -1.5/np.sqrt(t) + p, 'blue')
+#plt.plot(t+1,  1.5/np.sqrt(t) + p, 'blue')
+#plt.plot(t+1, -1.5/np.sqrt(t) + p, 'blue')
 plt.fill_between(t+1, 1.5/np.sqrt(t) +p, -1.5/np.sqrt(t) +p ,color = 'blue', alpha=0.125)
+#additional analysis for plotting makes the tighter plots fitted to a standard devation of a 1000 trials at select points 
+fiveN = np.random.binomial(5,0.5,5000)
+fiveNmean = np.mean(fiveN)/5
+fiveNSTD = np.std(fiveN)/5
+plt.errorbar([5], [fiveNmean], yerr=[[fiveNSTD], [fiveNSTD]],color="b",fmt='o')
+tenN = np.random.binomial(10,0.5,5000)
+tenNmean = np.mean(tenN)/10
+tenNSTD = np.std(tenN)/10
+plt.errorbar([10], [tenNmean], yerr=[[tenNSTD], [tenNSTD]],color="b",fmt='o')
+fiftyN = np.random.binomial(50,0.5,5000)
+fiftyNmean = np.mean(fiftyN)/50
+fiftyNSTD = np.std(fiftyN)/50
+plt.errorbar([50], [fiftyNmean], yerr=[[fiftyNSTD], [fiftyNSTD]],color="b",fmt='o')
+onehN = np.random.binomial(100,0.5,5000)
+onehNmean = np.mean(onehN)/100
+onehNSTD = np.std(onehN)/100
+plt.errorbar([100], [onehNmean], yerr=[[onehNSTD], [onehNSTD]],color="b",fmt='o')
+twohN = np.random.binomial(200,0.5,5000)
+twohNmean = np.mean(twohN)/200
+twohNSTD = np.std(twohN)/200
+plt.errorbar([200], [twohNmean], yerr=[[twohNSTD], [twohNSTD]],color="b",fmt='o')
+fourhN = np.random.binomial(400,0.5,5000)
+fourhNmean = np.mean(fourhN)/400
+fourhNSTD = np.std(fourhN)/400
+plt.errorbar([400], [fourhNmean], yerr=[[fourhNSTD], [fourhNSTD]],color="b",fmt='o')
+sixhN = np.random.binomial(600,0.5,5000)
+sixhNmean = np.mean(sixhN)/600
+sixhNSTD = np.std(sixhN)/600
+plt.errorbar([600], [sixhNmean], yerr=[[sixhNSTD], [sixhNSTD]],color="b",fmt='o')
+plt.fill_between(t+1, 1/np.sqrt(4*t) +pfair, -1/np.sqrt(4*t) +pfair ,color = 'g', alpha=0.5)
+plt.fill_between(t+1, 1/np.sqrt(4*t) +p, -1/np.sqrt(4*t) +p ,color = 'r', alpha=0.5)
