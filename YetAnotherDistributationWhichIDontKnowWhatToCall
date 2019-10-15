@@ -1,0 +1,79 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Oct 15 10:04:05 2019
+
+@author: dylansmac
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+import numpy.random as rnd
+
+#%%
+
+N = 100
+M = 1000
+mu = 1
+sigma = 1
+mub = 1.2
+sigmab = 1
+
+j = 0
+
+
+errorab = np.zeros(M)
+errorAB = np.zeros(M)
+
+
+
+while j < M:
+    tagab = 0
+    tagAB = 0
+    fab = np.zeros(N)
+    fAB = np.zeros(N)
+    i = 0
+    
+    
+    
+    a = rnd.normal(mu, sigma, N)
+    A = np.sort(a)
+    
+    b = rnd.normal(mub, sigmab, N)
+    B = np.sort(b)
+    
+    
+    
+    while i < N:
+        fab[i] = b[i]/a[i]
+        fAB[i] = B[i]/A[i]
+        if fab[i] < 1:
+            tagab += 1.0
+        if fAB[i] < 1:
+            tagAB += 1.0
+        i+=1
+    
+    
+    
+    errorab[j] = tagab/N * 100
+    errorAB[j] = tagAB/N * 100
+    j+=1
+
+
+
+print("error of Fab is ", np.average(errorab))
+print("error of FAB is ", np.average(errorAB))
+print("Average of Fab is ", np.average(fab))
+print("Average of FAB is ", np.average(fAB))
+plt.figure(1)
+plt.plot(fab, label = "ab")
+plt.plot(fAB, label = "AB")
+plt.legend()
+
+plt.figure(2)
+plt.hist(fab)
+plt.hist(fAB)
+
+plt.figure(3)
+plt.plot(A, color = "Red")
+plt.plot(B, color = "Blue")
