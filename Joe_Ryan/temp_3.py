@@ -17,10 +17,7 @@ def f(x, N, m, s):
     num = exp((-1/2)*sum((1/(s**2))*(x - m)**2))
     return num/d   
 
-n = 10**4
-pr = range(0, n, 1)
-m1 = 0.
-s1 = 1.
+
 
 Ia1 = []
 Na1 = []
@@ -129,8 +126,10 @@ def C(x, m, s):
     return prod(1/(B*(1 + A)))
 
 N = 10
-m2 = 1.
-s2 = 2.
+n = 10**4
+pr = range(0, n, 1)
+m1 = 0.
+s1 = 1.
 """
 for p in pr:
     x = normal(m1, s1, N)
