@@ -5,20 +5,6 @@ Created on Thu Oct 24 11:03:18 2019
 @author: jwryan
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Apr  3 14:10:17 2018
-
-@author: jwryan
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jun 20 16:03:49 2017
-
-@author: jwryan
-"""
-
 from numpy import savetxt, loadtxt, arange
 import time
 start_time = time.time()
