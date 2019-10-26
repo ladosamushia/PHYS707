@@ -100,6 +100,7 @@ for i,il in enumerate(median2):
             pdf*=(1/(np.pi*jl))*(1/pdf_deno)
         Cauchy[i,j]=pdf
 
-gauss_post=simps([simps(Gauss[:,j], sigma2) for j,jl in enumerate(sigma2)], mu2)
-cauchy_post=simps([simps(Cauchy[:,j], width2) for j,jl in enumerate(width2)], median2)
-print("ratio_of_gauss_cauchy",gauss_post/cauchy_post)
+
+gauss_post=simps([simps(Gauss[:,j], mu2) for j,jl in enumerate(sigma2)], sigma2)#making the double integral over mu and sigma taking the distributions as const
+cauchy_post=simps([simps(Cauchy[:,j], median2) for j,jl in enumerate(width2)], width2)#making the double integral over median and width taking the distributions as const
+print("ratio_of_(gauss posterior/cauchy posterior)",np.log(gauss_post/cauchy_post))#gauss should be a better model as expected hence the ratio bigger than one
