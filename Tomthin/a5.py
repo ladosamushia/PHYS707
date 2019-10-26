@@ -97,7 +97,7 @@ for i,il in enumerate(median2):
         pdf=1
         for t,tl in enumerate(xk2):
             pdf_deno=(1+((tl-il)/(jl))**2)
-            pdf*=(1/(np.pi*jl))*pdf_deno
+            pdf*=(1/(np.pi*jl))*(1/pdf_deno)
         Cauchy[i,j]=pdf
 
 gauss_post=simps([simps(Gauss[:,j], sigma2) for j,jl in enumerate(sigma2)], mu2)
