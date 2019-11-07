@@ -1,0 +1,17 @@
+import numpy as np
+import matplotlib.pyplot as plt
+data=np.loadtxt("Hz.txt")
+def h_t(z,h0,omega):
+  h_t=h0*np.sqrt((omega*(1+z)**3)-omega+1)
+  return h_t
+omega_n=np.arange(0,1,.005)
+H_0=np.arange(50,100,.5)
+print(omega_n.size)
+print(H_0.size)
+Loglk=np.zeros((omega_n.size,H_0.size))
+for i,ol in enumerate(omega_n):
+  for j,hl in enumerate(H_0):
+    h_th=h_t(data[:,0],hl,ol)
+    Loglk[i,j]=-.5*sum(((data[:,1]-h_th)**2)/((data[:,2])**2))
+plt.imshow(Loglk)
+plt.colorbar()
