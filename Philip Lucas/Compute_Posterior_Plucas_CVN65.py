@@ -4,7 +4,7 @@
 Posterior Determinination Phys 707
 Philip Lucas
 """
-
+# NOTE: Makes sure you update "Data" to import the right .txt file from the proper location
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -27,7 +27,7 @@ def Chi2(H_0t,Omegat): #Function for Chi squared values
     chi_sq = 0
     for i in range(len(Z)):
         H_t = Ht(H_0t,Omegat,Z[i])
-        chi_sq += ((H[i]-H_t)**2)/(SIGMA[i]*SIGMA[i])
+        chi_sq += ((H[i]-H_t)**2)/(SIGMA[i]**2)
     return chi_sq
 for i in range(N): #Nested loops to determine Chi Squared values. 
     for j in range(N):
@@ -37,14 +37,15 @@ minimum_chisq = np.where(results == np.min(results))
 Hprime = Htest[minimum_chisq[0]] #H Value at minimum Chi Squared value
 Omegaprime = Omegatest[minimum_chisq[1]] #Omega Value at minimum Chi Squared 
 
-print ('Minimum Chi Squared Value location:', minimum_chisq )
-print ('Minimum Chi Squared Value:' , np.min(results))
-print ('Best estimate for H:', Hprime)
-print ('Best estimate for Omega:', Omegaprime)
-
 for i in range(len(Z)): #computing data to plot the fit based on lowest chi squared values
     mod = Ht(Hprime,Omegaprime,Z[i])
     MOD.append(mod)
+
+print ('Minimum Chi Squared Value:' , np.min(results)) # printing results
+print ('Minimum Chi Squared Value location:', minimum_chisq )
+print ('Best estimate for H:', Hprime)
+print ('Best estimate for Omega:', Omegaprime)
+
 
 plt.figure(1) #plot of experimental data
 plt.title('Model and Data')
@@ -52,7 +53,7 @@ plt.xlabel('z')
 plt.ylabel(r'$H_0$')
 plt.errorbar(Z, H, SIGMA, fmt = 'o')
 plt.plot(Z,MOD)
-plt.figure(2)
+plt.figure(2)#contour plot of Chi Squared values
 plt.title(r'$X^2$')
 plt.xlabel(r'$H_0$')
 plt.ylabel(r'$\Omega_m$')
