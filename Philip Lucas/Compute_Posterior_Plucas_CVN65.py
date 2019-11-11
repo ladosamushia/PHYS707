@@ -4,10 +4,13 @@
 Posterior Determinination Phys 707
 Philip Lucas
 """
+
+
 # NOTE: Makes sure you update "Data" to import the right .txt file from the proper location
+
 import numpy as np
 import matplotlib.pyplot as plt
-
+from matplotlib import colors
 
 N = 100 #matrix size
 Data = np.loadtxt("Hz.txt") #Pulls data into pythonfile for further analysis 
@@ -59,9 +62,11 @@ plt.xlabel(r'$H_0$')
 plt.ylabel(r'$\Omega_m$')
 plt.contour(Htest,Omegatest,results,np.linspace(0,100,15),colors=['black'])
 plt.plot([Hprime], [Omegaprime], marker='o', markersize=3, color="red")
-#plt.figure(3) #fake color map
-#plt.xlabel(r'$H_0$')
-#plt.ylabel(r'$\Omega_m$')
-#plt.contour(Htest,Omegatest,results,np.linspace(0,1000,100*N))
-#plt.figure(4) #color map doesn't quite work
-#plt.imshow(results) 
+plt.figure(3)
+plt.title(r'$X^2$')
+plt.xlabel(r'$H_0$')
+plt.ylabel(r'$\Omega_m$')
+plt.pcolormesh(Htest,Omegatest,results, norm= colors.LogNorm(), cmap='inferno')
+plt.colorbar()
+plt.contour(Htest,Omegatest,results,np.linspace(0,100,15),colors=['black'])
+plt.plot([Hprime], [Omegaprime], marker='o', markersize=3, color="red")
