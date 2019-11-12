@@ -3,11 +3,6 @@
 Created on Thu Nov 07 09:32:09 2019
 
 @author: blainef
-
-Try something with Chi-Squared (normalized by error)
-Try something with scipy.curve_fit (???)
-
-
 """
 #%% set things up
 # import packages
@@ -19,8 +14,8 @@ def H_theory(z,H_0,Omega_m):
     return H_0*np.sqrt(Omega_m*((1.+z)**3)+1-Omega_m)
 
 # load the data
-z,H,sigma = np.loadtxt('C:\\Users\\kilof\\OneDrive\\Documents\\\\Hz.txt',unpack=True)
-
+z,H,sigma0 = np.loadtxt('C:\\Users\\kilof\\OneDrive\\Documents\\\\Hz.txt',unpack=True)
+sigma=sigma0/2
 # plot the data
 plt.figure(1)
 plt.xlabel('z')
@@ -49,13 +44,17 @@ for i in range(gridN):
 
 # find the best fit values
 min_idx = np.where(results == np.min(results))
-print min_idx
 
 #%% plot results
 # make a contour plot
 plt.figure(2)
 plt.xlabel(r'$H_0$')
 plt.ylabel(r'$\Omega_m$')
-plt.contour(H_0_test,Omega_m_test,results,[6,12,24,48],colors=['black'])
+plt.contour(H_0_test,Omega_m_test,results,[15,30,60,120,240,360,480,600],colors=['black'])
+plt.plot(H_0_test[min_idx[0][0]],Omega_m_test[min_idx[1][0]],'r.')
 
 # put the best fit line on figure 1
+plt.figure(1)
+plt.plot(z,H_theory(z,H_0_test[min_idx[0][0]],Omega_m_test[min_idx[1][0]]),'r--')
+
+
