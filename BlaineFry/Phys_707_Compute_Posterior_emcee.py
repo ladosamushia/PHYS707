@@ -69,10 +69,11 @@ import emcee
 N_walkers = 50
 walkers = min_values + np.random.rand(N_walkers,2)
 
-# define the probability ... IT DOESN'T LIKE THIS! D:
+# define the probability 
+# do we want P(data|parameters) or P(parameters|data)?
 def log_prob(opt_parameters):
     H_0,Omega_m = opt_parameters
-    return -np.log(Chi2(H_0,Omega_m))
+    return -np.log(Chi2(H_0,Omega_m)) # IT DOESN'T LIKE THIS! D:
 
 # run mcmc
 sampler = emcee.EnsembleSampler(N_walkers,2,log_prob)
