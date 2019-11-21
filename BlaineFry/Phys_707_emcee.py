@@ -2,10 +2,11 @@
 """
 Created on Tue Nov 19 09:39:44 2019
 
-@author: kilof
+@author: Blaine Fry
 """
 
 import numpy as np
+from matplotlib import pyplot as plt
 import emcee
 
 z,H_m,sigma0 = np.loadtxt('C:\\Users\\kilof\\OneDrive\\Documents\\\\Hz.txt',unpack=True)
@@ -31,3 +32,5 @@ sampler.run_mcmc(p0.T,10000)
 
 samples = sampler.get_chain(flat=True)
 
+hist,dumby1,dumby2 =np.histogram2d(samples[:,0],samples[:,1],bins=100)
+plt.imshow(hist)
