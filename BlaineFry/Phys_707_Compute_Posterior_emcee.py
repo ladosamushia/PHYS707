@@ -66,21 +66,24 @@ plt.plot(z,H_theory(z,H_0_test[min_idx[0][0]],Omega_m_test[min_idx[1][0]]),'r--'
 import emcee
 
 # initialize the position of the walkers close to the chi_squared optimized values
-N_walkers = 50
-walkers = min_values + np.random.rand(N_walkers,2)
+N_walkers = 10
+walkers = min_values + 1e-4*np.random.rand(N_walkers,2)
 
-# define the probability 
-# do we want P(data|parameters) or P(parameters|data)?
+# define the probability
 def log_prob(opt_parameters):
     H_0,Omega_m = opt_parameters
-    return -np.log(Chi2(H_0,Omega_m)) # IT DOESN'T LIKE THIS! D:
+    if np.min(Omega_m*((1.+z)**3)+1-Omega_m) < 0:
+        return -np.inf
+    return -0.5*Chi2(H_0,Omega_m)
 
 # run mcmc
 sampler = emcee.EnsembleSampler(N_walkers,2,log_prob)
-sampler.run_mcmc(walkers, 500, progress=True)
+sampler.run_mcmc(walkers, 5000, progress=True)
+
+samples = sampler.get_chain(flat=True)
 
 # plot the walkers...
-for w in walkers:
-    plt.figure(2)
-    plt.plot(w[0],w[1],'b.',alpha=0.3)
+plt.figure(2)
+plt.plot(samples[:,0],samples[:,1],'b.',alpha=0.1)
+
 
