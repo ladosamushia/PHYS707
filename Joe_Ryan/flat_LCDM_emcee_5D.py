@@ -18,7 +18,7 @@ z_obs, Hz_obs, sigHobs = loadtxt('H(z)data.dat',unpack = True)
 def logL(paras):
     H0, O, Ok, w0, wa = paras[0], paras[1], paras[2], paras[3], paras[4]
     def E(z, O, Ok, w0, wa): #Expansion parameter
-        w0e = 3*(1 - w0) #Should be 1 + w0?
+        w0e = 3*(1 + w0) #Should be 1 + w0?
         wae = -3*wa*(z/(1 + z))
         return (O*((1 + z)**3) + Ok*((1 + z)**2) + (1 - O - Ok)*((1 + z)**w0e)*exp(wae))**(1/2)
     
@@ -33,7 +33,7 @@ def logL(paras):
 
 def lnprior(paras):
     H0, O, Ok, w0, wa = paras[0], paras[1], paras[2], paras[3], paras[4]
-    if ((60 <= H0 <= 100) and (0.1 <= O <= 0.5) and (-0.4 <= Ok <= 0.4) and (-1.2 <= w0 <= -0.8) and (-1 <= wa <= 1)):
+    if ((50 <= H0 <= 100) and (0.1 <= O <= 0.5) and (-0.1 <= Ok <= 0.1) and (-1.2 <= w0 <= -0.8) and (-1 <= wa <= 1)):
         return 0.0
     return -inf
 
@@ -52,7 +52,7 @@ pos, prob, state = sampler.run_mcmc(p0, 100)
 sampler.reset()
 print('check 2')
 
-sampler.run_mcmc(pos, 200)
+sampler.run_mcmc(pos, 200000)
 chain = sampler.flatchain.copy()
 savetxt('flat_LCDM_emcee_5D.txt', chain)
 
