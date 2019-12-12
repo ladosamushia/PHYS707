@@ -23,7 +23,9 @@ z,H,sigma = np.loadtxt('Hz.txt',unpack=True)
 def Chi2(H_0t,Omega_mt,Omega_kt,w_0t,w_at):
     chi_squared = 0
     for i in range(len(z)):
-        H_t = np.nan_to_num(H_theory(z[i],H_0t,Omega_mt,Omega_kt,w_0t,w_at))
+        H_t = (H_theory(z[i],H_0t,Omega_mt,Omega_kt,w_0t,w_at))
+        if H_t == np.nan:
+            H_t = np.nan_to_num(H_theory(z[i],H_0t,Omega_mt,Omega_kt,w_0t,w_at)) + H_theory(z[i], np.random.uniform(50,100), np.random.uniform(0.1,0.5), np.random.uniform(-1.00), np.random.uniform(-0.8,-1.2), np.random.uniform(-1.0,1.0))
         chi_squared += ((H[i]-H_t)**2)/(sigma[i]*sigma[i])
 
 
@@ -83,27 +85,23 @@ for s in samples:
 #    plt.imshow(hist)
 #    i += 1
     
-#fig = plt.figure(1)
-#ax = fig.add_subplot(111, projection='3d')
-#ax.scatter(samples[:,0], samples[:,1], samples[:,2], c='b', marker='.')
-#ax.set_xlim([-100,100])
-#ax.set_ylim([-5,5])
-#ax.set_zlim([-10,10])
-#fig = plt.figure(2)
-#ax = fig.add_subplot(111, projection='3d')
-#ax.scatter(samples[:,0], samples[:,1], samples[:,2], c='b', marker='.')
-#
-#fig = plt.figure(3)
-#ax = fig.add_subplot(111, projection='3d')
-#ax.scatter(samples[:,2], samples[:,3], samples[:,4], c='b', marker='.')
-#ax.set_xlim([-10,10])
-#ax.set_ylim([-10,10])
-#ax.set_zlim([-10,10])
-#fig = plt.figure(4)
-#ax = fig.add_subplot(111, projection='3d')
-#ax.scatter(samples[:,0], samples[:,1], samples[:,2], c='b', marker='.')
+fig = plt.figure(1)
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(samples[:,0], samples[:,1], samples[:,2], c='b', marker='.')
 
-plt.figure(2)
+fig = plt.figure(2)
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(samples[:,0], samples[:,1], samples[:,2], c='b', marker='.')
+
+fig = plt.figure(3)
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(samples[:,2], samples[:,3], samples[:,4], c='b', marker='.')
+
+fig = plt.figure(4)
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(samples[:,0], samples[:,1], samples[:,2], c='b', marker='.')
+
+plt.figure(5)
 plt.plot(samples[:,0],samples[:,1],".")
 plt.xlim([-100,100])
 plt.ylim([-10,10])
